@@ -1,5 +1,6 @@
 import { defineConfig } from 'tsdown'
 import { typertPlugin } from './packages/typert/generator/lib/types/tsdown-plugin.js'
+import { tscSourceMapPlugin } from './scripts/tsc-sourcemap-plugin.ts'
 
 function isBuildFaceClient(value: unknown): boolean {
   if (value === undefined || value === 'host') return false
@@ -26,7 +27,8 @@ export default defineConfig(({ env }) => {
     target: 'es2024',
     fixedExtension: false,
     dts: false,
+    sourcemap: true,
     clean: false,
-    plugins: client ? [] : [typertPlugin({ mode: 'workspace', faces: ['host'] })],
+    plugins: client ? [tscSourceMapPlugin()] : [tscSourceMapPlugin(), typertPlugin({ mode: 'workspace', faces: ['host'] })],
   }
 })

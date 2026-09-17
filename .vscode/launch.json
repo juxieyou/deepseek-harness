@@ -1,0 +1,105 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug dsh CLI",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--import",
+        "tsx/esm"
+      ],
+      "program": "${workspaceFolder}/apps/cli/src/bin.ts",
+      "args": [
+        "--version"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Debug dsh Web",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--import",
+        "tsx/esm"
+      ],
+      "program": "${workspaceFolder}/apps/cli/src/bin.ts",
+      "args": [
+        "web"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build dsh Web artifacts",
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/apps/**/lib/**/*.js",
+        "${workspaceFolder}/packages/**/lib/**/*.js",
+        "${workspaceFolder}/vendor/**/lib/**/*.js"
+      ],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Watch dsh Web assets",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--import",
+        "tsx/esm"
+      ],
+      "program": "${workspaceFolder}/scripts/dev-web.ts",
+      "args": [
+        "--poll"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build dsh Web artifacts",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "Debug dsh Web in Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:3080",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug dsh Web with asset watcher",
+      "configurations": [
+        "Watch dsh Web assets",
+        "Debug dsh Web"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Debug dsh Web full stack",
+      "configurations": [
+        "Watch dsh Web assets",
+        "Debug dsh Web",
+        "Debug dsh Web in Chrome"
+      ],
+      "stopAll": true
+    }
+  ]
+}
