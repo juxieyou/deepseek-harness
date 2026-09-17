@@ -51,6 +51,32 @@
       ]
     },
     {
+      "name": "Debug built dsh Web",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "program": "${workspaceFolder}/apps/cli/lib/bin.js",
+      "args": [
+        "web"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build dsh Web artifacts",
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/apps/**/lib/**/*.js",
+        "${workspaceFolder}/packages/**/lib/**/*.js",
+        "${workspaceFolder}/vendor/**/lib/**/*.js"
+      ],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
       "name": "Watch dsh Web assets",
       "type": "node",
       "request": "launch",
@@ -97,6 +123,15 @@
       "configurations": [
         "Watch dsh Web assets",
         "Debug dsh Web",
+        "Debug dsh Web in Chrome"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Debug built dsh Web full stack",
+      "configurations": [
+        "Watch dsh Web assets",
+        "Debug built dsh Web",
         "Debug dsh Web in Chrome"
       ],
       "stopAll": true
